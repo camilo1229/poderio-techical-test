@@ -5,10 +5,14 @@ class UsersController < ApplicationController
   def authenticate
     # TODO: unmock this:
     # Create a model user with login, password, token and tenant_id and do a proper login
-    if params[:password] == '123456'
-      render json: {:status => 'ok', token: '123'}.to_json, status: 200
+    if user = User.find_by(login: params[:username])
+      if user.validate_password(params[:password])
+        render json: {status: 'ok', token: user.token}, status: :ok
+      else
+        render json: {:status => 'no_pwd'}, status: 200
+      end
     else
-      render json: {:status => 'no_pwd'}.to_json, status: 200
+      render json: {message: "User not found"}, status: :not_found
     end
   end
 

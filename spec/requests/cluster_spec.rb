@@ -13,6 +13,9 @@ describe 'Tenants API' do
     Apartment::Tenant.switch!(tenant_2.tenant_key)
     create(:cluster_1_tenant_2)
     Apartment::Tenant.switch!('public')
+
+    create(:user_1, tenant: tenant_1 )
+    create(:user_2, tenant: tenant_2 )
   end
 
   describe "GET #index" do

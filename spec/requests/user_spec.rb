@@ -9,6 +9,7 @@ describe 'Tenants API' do
   # Look at params_hash object to make it fit properly.
 
   #let!(:user_1) {create(:user_1)}
+  let!(:user_1) {create(:user_1, tenant: tenant_1 )}
 
   describe "POST #authenticate" do
 
